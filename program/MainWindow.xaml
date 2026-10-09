@@ -1,0 +1,191 @@
+<Window x:Class="PersonalNavigator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:shell="clr-namespace:System.Windows.Shell;assembly=PresentationFramework"
+        Title="Personal Navigator" Width="1040" Height="680" MinWidth="760" MinHeight="520"
+        WindowStartupLocation="CenterScreen" WindowStyle="None" ResizeMode="CanResizeWithGrip"
+        Background="#0B0F14" Foreground="{StaticResource TextBrush}"
+        FontFamily="Segoe UI Variable Text, Segoe UI" KeyDown="Window_KeyDown">
+  <shell:WindowChrome.WindowChrome>
+    <shell:WindowChrome CaptionHeight="0" CornerRadius="16" ResizeBorderThickness="7" GlassFrameThickness="0"/>
+  </shell:WindowChrome.WindowChrome>
+
+  <Border x:Name="WindowBorder" Background="{StaticResource BackgroundBrush}" BorderBrush="#344252"
+          BorderThickness="1" CornerRadius="16" ClipToBounds="True">
+    <Grid>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="68"/>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="54"/>
+      </Grid.RowDefinitions>
+
+      <!-- Compact title and search bar -->
+      <Border Grid.Row="0" Background="#0E141C" BorderBrush="#202A36" BorderThickness="0,0,0,1"
+              MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
+        <Grid Margin="14,10">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+          </Grid.ColumnDefinitions>
+
+          <Border Width="38" Height="38" CornerRadius="11" Background="#173C3B" VerticalAlignment="Center">
+            <TextBlock Text="⌘" Foreground="{StaticResource AccentBrush}" FontSize="20"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+          </Border>
+
+          <Button x:Name="BackButton" Grid.Column="1" Style="{StaticResource ChromeButton}" Content="←"
+                  FontSize="20" Margin="7,0,2,0" Click="BackButton_Click" ToolTip="Go back" Visibility="Collapsed"/>
+
+          <Border Grid.Column="2" Background="#090D12" BorderBrush="#2B3948" BorderThickness="1"
+                  CornerRadius="11" Margin="6,0,10,0" Height="42" VerticalAlignment="Center">
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="38"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="34"/>
+              </Grid.ColumnDefinitions>
+              <TextBlock Text="⌕" FontSize="20" Foreground="{StaticResource MutedBrush}"
+                         HorizontalAlignment="Center" VerticalAlignment="Center"/>
+              <TextBox x:Name="SearchBox" Grid.Column="1" BorderThickness="0" Background="Transparent"
+                       Padding="0" VerticalContentAlignment="Center" TextChanged="SearchBox_TextChanged"
+                       PreviewKeyDown="SearchBox_PreviewKeyDown"/>
+              <TextBlock x:Name="SearchPlaceholder" Grid.Column="1" Text="Search projects, ideas, files…"
+                         Foreground="#68798C" IsHitTestVisible="False" VerticalAlignment="Center" FontSize="14"/>
+              <Button x:Name="ClearSearchButton" Grid.Column="2" Style="{StaticResource ChromeButton}"
+                      Content="×" FontSize="17" Padding="5" Click="ClearSearchButton_Click" Visibility="Collapsed"/>
+            </Grid>
+          </Border>
+
+          <Button x:Name="DepthButton" Grid.Column="3" Style="{StaticResource PillButton}" Margin="0,2,6,2"
+                  Click="DepthButton_Click" ToolTip="Switch between project roots and individual files">
+            <StackPanel Orientation="Horizontal">
+              <TextBlock Text="◉" Margin="0,0,7,0" Foreground="{StaticResource AccentBrush}"/>
+              <TextBlock x:Name="DepthButtonText" Text="Project roots"/>
+            </StackPanel>
+          </Button>
+          <Button Grid.Column="4" Style="{StaticResource ChromeButton}" Content="⚙" FontSize="17"
+                  Click="SettingsButton_Click" ToolTip="Settings"/>
+          <Button Grid.Column="5" Style="{StaticResource ChromeButton}" Content="_" FontSize="16"
+                  Click="MinimizeButton_Click" ToolTip="Minimize"/>
+          <Button Grid.Column="6" Style="{StaticResource ChromeButton}" Content="×" FontSize="18"
+                  Click="HideButton_Click" ToolTip="Hide. Ctrl+Alt+Space brings it back"/>
+        </Grid>
+      </Border>
+
+      <!-- Mind map -->
+      <Grid Grid.Row="1" Background="#0B0F14" ClipToBounds="True">
+        <Canvas x:Name="MapCanvas" SizeChanged="MapCanvas_SizeChanged" MouseWheel="MapCanvas_MouseWheel"
+                Background="Transparent"/>
+
+        <Border x:Name="LoadingPanel" Background="#D90B0F14" CornerRadius="14" Padding="22,16"
+                HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
+          <StackPanel>
+            <TextBlock Text="Indexing Personal…" FontSize="16" FontWeight="SemiBold" HorizontalAlignment="Center"/>
+            <TextBlock Text="Building a fast local map. You can keep using the app."
+                       Foreground="{StaticResource MutedBrush}" Margin="0,6,0,0"/>
+          </StackPanel>
+        </Border>
+
+        <Border x:Name="NoResultsPanel" Background="#111821" BorderBrush="#263241" BorderThickness="1"
+                CornerRadius="14" Padding="22,16" HorizontalAlignment="Center" VerticalAlignment="Center"
+                Visibility="Collapsed">
+          <StackPanel>
+            <TextBlock Text="No close matches yet" FontSize="16" FontWeight="SemiBold" HorizontalAlignment="Center"/>
+            <TextBlock Text="Try fewer words or enable More detail."
+                       Foreground="{StaticResource MutedBrush}" Margin="0,6,0,0" HorizontalAlignment="Center"/>
+          </StackPanel>
+        </Border>
+
+        <!-- Settings stay out of the way until requested. -->
+        <Border x:Name="SettingsDrawer" Width="342" HorizontalAlignment="Right" Background="#F5111821"
+                BorderBrush="#324052" BorderThickness="1,0,0,0" Visibility="Collapsed">
+          <Grid>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="*"/>
+              <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid Margin="18,16,14,10">
+              <TextBlock Text="Navigator settings" FontSize="18" FontWeight="SemiBold"/>
+              <Button HorizontalAlignment="Right" Style="{StaticResource ChromeButton}" Content="×"
+                      Click="SettingsButton_Click" FontSize="18"/>
+            </Grid>
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+              <StackPanel Margin="18,8,18,18">
+                <TextBlock Text="SEARCH" Foreground="{StaticResource AccentBrush}" FontSize="11" FontWeight="SemiBold"/>
+                <CheckBox x:Name="IncludeFilesCheck" Content="Include individual files in the index"/>
+                <CheckBox x:Name="HiddenCheck" Content="Include hidden files and folders"/>
+                <CheckBox x:Name="DefaultDeepCheck" Content="Start searches in More detail mode"/>
+
+                <TextBlock Text="Allowed file extensions" Margin="0,13,0,5" Foreground="{StaticResource MutedBrush}"/>
+                <TextBox x:Name="ExtensionsBox" ToolTip="Comma-separated. Leave blank for every extension."/>
+                <TextBlock Text="Leave blank for all, or use: pdf, docx, py, jpg" FontSize="11"
+                           Foreground="#68798C" Margin="2,4,0,0"/>
+
+                <TextBlock Text="Excluded folder names" Margin="0,13,0,5" Foreground="{StaticResource MutedBrush}"/>
+                <TextBox x:Name="ExcludedFoldersBox" TextWrapping="Wrap" MinHeight="62" AcceptsReturn="True"/>
+
+                <TextBlock Text="VIEW" Foreground="{StaticResource AccentBrush}" FontSize="11"
+                           FontWeight="SemiBold" Margin="0,22,0,4"/>
+                <CheckBox x:Name="AnimateCheck" Content="Smooth node animations"/>
+                <CheckBox x:Name="TopmostCheck" Content="Keep the map above other windows"/>
+                <TextBlock Text="Maximum visible nodes" Margin="0,13,0,4" Foreground="{StaticResource MutedBrush}"/>
+                <Grid>
+                  <Grid.ColumnDefinitions><ColumnDefinition/><ColumnDefinition Width="36"/></Grid.ColumnDefinitions>
+                  <Slider x:Name="MaxResultsSlider" Minimum="6" Maximum="16" TickFrequency="1" IsSnapToTickEnabled="True"
+                          ValueChanged="MaxResultsSlider_ValueChanged"/>
+                  <TextBlock x:Name="MaxResultsLabel" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                </Grid>
+                <TextBlock Text="Node size" Margin="0,13,0,4" Foreground="{StaticResource MutedBrush}"/>
+                <Slider x:Name="NodeScaleSlider" Minimum="0.8" Maximum="1.2" TickFrequency="0.05" IsSnapToTickEnabled="True"/>
+
+                <TextBlock Text="WINDOWS" Foreground="{StaticResource AccentBrush}" FontSize="11"
+                           FontWeight="SemiBold" Margin="0,22,0,4"/>
+                <CheckBox x:Name="StartupCheck" Content="Start quietly with Windows"/>
+                <TextBlock Text="Global shortcut: Ctrl + Alt + Space" Foreground="{StaticResource MutedBrush}" Margin="0,7,0,0"/>
+                <TextBlock Text="Explorer: right-click a folder or empty space, then choose Open Personal Map."
+                           Foreground="#68798C" TextWrapping="Wrap" Margin="0,7,0,0"/>
+
+                <Button Style="{StaticResource PillButton}" Content="Rebuild search index" Margin="0,18,0,0"
+                        HorizontalAlignment="Left" Click="RebuildButton_Click"/>
+              </StackPanel>
+            </ScrollViewer>
+            <Border Grid.Row="2" BorderBrush="#263241" BorderThickness="0,1,0,0" Padding="18,12">
+              <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Style="{StaticResource ChromeButton}" Content="Cancel" Margin="0,0,7,0" Click="SettingsButton_Click"/>
+                <Button Style="{StaticResource PillButton}" Content="Save changes" Click="SaveSettingsButton_Click"/>
+              </StackPanel>
+            </Border>
+          </Grid>
+        </Border>
+      </Grid>
+
+      <!-- Selected item actions and status -->
+      <Border Grid.Row="2" Background="#0E141C" BorderBrush="#202A36" BorderThickness="0,1,0,0">
+        <Grid Margin="14,8">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+          </Grid.ColumnDefinitions>
+          <StackPanel VerticalAlignment="Center">
+            <TextBlock x:Name="BreadcrumbText" Text="Personal" TextTrimming="CharacterEllipsis" FontSize="12"/>
+            <TextBlock x:Name="StatusText" Text="Starting local index…" Foreground="{StaticResource MutedBrush}"
+                       FontSize="11" Margin="0,2,0,0"/>
+          </StackPanel>
+          <StackPanel x:Name="SelectionActions" Grid.Column="1" Orientation="Horizontal" Visibility="Collapsed">
+            <Button Style="{StaticResource ChromeButton}" Content="Copy path" Click="CopyPathButton_Click"/>
+            <Button Style="{StaticResource ChromeButton}" Content="Show in Explorer" Click="RevealButton_Click"/>
+            <Button Style="{StaticResource PillButton}" Content="Open" Click="OpenButton_Click" Margin="6,0,8,0"/>
+          </StackPanel>
+          <TextBlock Grid.Column="2" Text="Ctrl Alt Space" Foreground="#647487" VerticalAlignment="Center" FontSize="11"/>
+        </Grid>
+      </Border>
+    </Grid>
+  </Border>
+</Window>

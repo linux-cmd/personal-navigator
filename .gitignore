@@ -1,0 +1,21 @@
+# Build output
+**/bin/
+**/obj/
+artifacts/
+app/
+
+# Local application data and captures
+qa/
+*.user
+*.suo
+*.cache
+
+# Editors and operating systems
+.vs/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Vercel local state
+.vercel/
