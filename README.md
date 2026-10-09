@@ -1,58 +1,55 @@
 # Personal Navigator
 
-Personal Navigator is a compact Windows utility that turns a large personal folder into a visual, searchable map. It favors useful project roots over long lists of individual files, while keeping deeper results one click away.
+**Find the project, not the clutter.** Personal Navigator is a free, MIT-licensed Windows desktop app that maps and searches your local project folders. It prioritizes useful project roots over long lists of unrelated files.
 
 Created and maintained by **Abhijay Panwar**.
 
-[Download for Windows](https://github.com/linux-cmd/personal-navigator/releases/latest/download/PersonalNavigator-win-x64.zip) | [Website](https://linux-cmd.github.io/personal-navigator/) | [Installation guide](docs/INSTALLATION.md)
+[Website](https://linux-cmd.github.io/personal-navigator/) · [Download latest release](https://github.com/linux-cmd/personal-navigator/releases/latest) · [Install guide](docs/INSTALLATION.md) · [Report a bug](https://github.com/linux-cmd/personal-navigator/issues/new/choose)
 
-## What it does
+![Screenshot of the Personal Navigator interface](website/assets/app-preview.png)
 
-- Opens from anywhere with `Ctrl+Alt+Space`.
-- Adds **Open Personal Map** to the File Explorer context menu.
-- Finds related projects from approximate language, not only exact names.
-- Groups normal results by project root to keep the map readable.
-- Switches to deeper file and subfolder results when requested.
-- Runs locally and keeps the index on the computer.
-- Exposes file types, exclusions, animation, startup, and display controls in settings.
+## What you can do
 
-For example, searching for `bionic hand` can surface an ECHO project even when those words are not in its folder name. Typo-tolerant matching also handles searches such as `clas mate`.
+- Press **Ctrl+Alt+Space** to open the project map from anywhere on Windows.
+- Search names, paths, approximate spellings, and a local list of related words. This is **not** an AI semantic search service.
+- View relevant projects first, then switch to deeper file and subfolder results.
+- Open folders directly in Windows Explorer or use **Open Personal Map** from Explorer.
+- Customize exclusions, indexing of file types, animations, startup and display preferences.
+- Work entirely locally: no account, search server or file uploads.
 
-## Install
+**Important:** By default, the app searches `%USERPROFILE%\Personal`. Create a folder named `Personal` in your user profile and place your projects inside it before running the app. Customizing the index root is not yet supported.
 
-1. Download `PersonalNavigator-win-x64.zip` from the latest release.
-2. Extract the archive.
-3. Run `Install-PersonalNavigator.ps1` with PowerShell.
-4. Press `Ctrl+Alt+Space`.
+## Download and install
 
-The build is self-contained for 64-bit Windows 10 and Windows 11. See the [full installation guide](docs/INSTALLATION.md) for SmartScreen and manual-run details.
+1. Open the [latest Windows release](https://github.com/linux-cmd/personal-navigator/releases/latest).
+2. If available, download `PersonalNavigator-Setup-win-x64.exe` and follow the setup wizard.
+3. Older releases such as v1.0.0 contain only a ZIP; extract it and run `Install-PersonalNavigator.ps1`.
+4. Press **Ctrl+Alt+Space**.
 
-## Repository layout
+**System requirements:** Windows 10/11 x64. Currently unsigned; Windows SmartScreen may warn. The installer uses the current Windows user and requires no administrator permissions. There is no automatic updater yet: check GitHub Releases to install updates manually.
 
-| Folder | Purpose |
-| --- | --- |
-| `program` | WPF desktop application and smoke tests |
-| `website` | Static product website for GitHub Pages or Vercel |
-| `scripts` | Local installation and release packaging |
-| `docs` | Installation and architecture notes |
-| `.github` | CI, release, Pages, and contribution workflows |
+See [installation, upgrade and uninstall instructions](docs/INSTALLATION.md). Linux and macOS builds are not available because this interface uses WPF.
 
-## Development
+## Build and test
 
-Requirements: Windows, Git, and the .NET 8 SDK.
+On Windows with the .NET 8 SDK:
 
 ```powershell
 dotnet build .\program\PersonalNavigator.csproj -c Release
 dotnet run --project .\program\tests\SmokeTest\SmokeTest.csproj -c Release
-.\scripts\Build-Release.ps1
 ```
 
-The app intentionally avoids a server, database, package manager, and web runtime. The published Windows release is a single self-contained executable.
+To package a release you also need NSIS 3.x:
 
-## Platform status
+```powershell
+.\scripts\Build-Release.ps1 -Version 1.1.0
+.\scripts\Build-Installer.ps1 -Version 1.1.0
+```
 
-The desktop app currently supports Windows x64. Linux and macOS are listed on the website as planned work because the current WPF interface is Windows-specific. Contributions toward a cross-platform interface are welcome.
+**Repository:** `program/` desktop source and tests; `website/` static website; `scripts/` packaging and installer; `docs/` install and [release guide](docs/RELEASING.md); `.github/` CI and release automation.
 
-## License
+## Trust, contributions and support
 
-Personal Navigator is available under the [MIT License](LICENSE).
+Read [architecture](docs/ARCHITECTURE.md), [security reporting](SECURITY.md), [contribution instructions](CONTRIBUTING.md) and [changes](CHANGELOG.md). Report reproducible bugs through issue templates. The app indexes local file names and paths; do not attach screenshots containing private paths or data.
+
+Licensed under [MIT](LICENSE).
