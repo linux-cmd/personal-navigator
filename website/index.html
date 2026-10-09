@@ -1,161 +1,379 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Personal Navigator is a fast visual map and fuzzy search tool for your files.">
-  <meta name="theme-color" content="#090b11">
-  <meta property="og:title" content="Personal Navigator">
-  <meta property="og:description" content="Find the project. Skip the clutter.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://linux-cmd.github.io/personal-navigator/">
-  <meta property="og:image" content="https://linux-cmd.github.io/personal-navigator/assets/app-preview.png">
-  <title>Personal Navigator | Find the project, not the clutter</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <div class="ambient ambient-one"></div>
-  <div class="ambient ambient-two"></div>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Personal Navigator is a fast visual map and fuzzy search tool for your files."
+    />
+    <meta name="theme-color" content="#090b11" />
+    <meta property="og:title" content="Personal Navigator" />
+    <meta
+      property="og:description"
+      content="Find the project. Skip the clutter."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://linux-cmd.github.io/personal-navigator/"
+    />
+    <meta
+      property="og:image"
+      content="https://linux-cmd.github.io/personal-navigator/assets/app-preview.png"
+    />
+    <title>Personal Navigator | Find the project, not the clutter</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="ambient ambient-one"></div>
+    <div class="ambient ambient-two"></div>
 
-  <header class="nav shell">
-    <a class="brand" href="#top" aria-label="Personal Navigator home">
-      <span class="brand-mark" aria-hidden="true">
-        <svg viewBox="0 0 34 34" role="img"><circle cx="17" cy="17" r="4"/><circle cx="6" cy="10" r="2.5"/><circle cx="28" cy="8" r="2.5"/><circle cx="29" cy="25" r="2.5"/><circle cx="7" cy="26" r="2.5"/><path d="M9 11.5l5 3M20 14l5.5-4M20.5 19l5.5 4M13.5 20L9 24"/></svg>
-      </span>
-      <span>Personal Navigator</span>
-    </a>
-    <nav aria-label="Primary navigation">
-      <a href="#features">Features</a>
-      <a href="#downloads">Download</a>
-      <a href="https://github.com/linux-cmd/personal-navigator">GitHub</a>
-    </nav>
-  </header>
+    <header class="nav shell">
+      <a class="brand" href="#top" aria-label="Personal Navigator home">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 34 34" role="img">
+            <circle cx="17" cy="17" r="4" />
+            <circle cx="6" cy="10" r="2.5" />
+            <circle cx="28" cy="8" r="2.5" />
+            <circle cx="29" cy="25" r="2.5" />
+            <circle cx="7" cy="26" r="2.5" />
+            <path d="M9 11.5l5 3M20 14l5.5-4M20.5 19l5.5 4M13.5 20L9 24" />
+          </svg>
+        </span>
+        <span>Personal Navigator</span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="#features">Features</a>
+        <a href="#downloads">Download</a>
+        <a href="https://github.com/linux-cmd/personal-navigator">GitHub</a>
+      </nav>
+    </header>
 
-  <main id="top">
-    <section class="hero shell">
-      <div class="hero-copy reveal">
-        <span class="eyebrow"><i></i> Open source for Windows</span>
-        <h1>Find the project.<br><span>Skip the clutter.</span></h1>
-        <p class="lede">A fast visual map for the folders you actually use. Search by name, idea, or rough memory and jump straight to the right place.</p>
-        <div class="hero-actions">
-          <a class="button button-primary" href="https://github.com/linux-cmd/personal-navigator/releases/latest/download/PersonalNavigator-win-x64.zip">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12m0 0 5-5m-5 5-5-5M5 20h14"/></svg>
-            Download for Windows
-          </a>
-          <a class="button button-quiet" href="https://github.com/linux-cmd/personal-navigator">View source</a>
-        </div>
-        <p class="release-line"><span id="release-version">Version 1.0.0</span><b></b>Windows 10/11 x64<b></b>MIT licensed</p>
-      </div>
-
-      <div class="product-frame reveal" aria-label="Personal Navigator application preview">
-        <div class="frame-glow"></div>
-        <div class="window-bar"><span></span><span></span><span></span><small>PERSONAL NAVIGATOR</small><kbd>Ctrl Alt Space</kbd></div>
-        <div class="window-body">
-          <div class="search-demo">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.7" cy="10.7" r="6.7"/><path d="m16 16 4 4"/></svg>
-            <span>bionic hand</span>
-            <em>Project roots</em>
+    <main id="top">
+      <section class="hero shell">
+        <div class="hero-copy reveal">
+          <span class="eyebrow"><i></i> Open source for Windows</span>
+          <h1>Find the project.<br /><span>Skip the clutter.</span></h1>
+          <p class="lede">
+            A fast visual map for the folders you actually use. Search by name,
+            idea, or rough memory and jump straight to the right place.
+          </p>
+          <div class="hero-actions">
+            <a
+              class="button button-primary"
+              href="https://github.com/linux-cmd/personal-navigator/releases/latest/download/PersonalNavigator-win-x64.zip"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 3v12m0 0 5-5m-5 5-5-5M5 20h14" />
+              </svg>
+              Download for Windows
+            </a>
+            <a
+              class="button button-quiet"
+              href="https://github.com/linux-cmd/personal-navigator"
+              >View source</a
+            >
           </div>
-          <div class="map" aria-hidden="true">
-            <svg class="map-lines" viewBox="0 0 720 390" preserveAspectRatio="none">
-              <path d="M360 195 C285 195 260 90 165 90"/><path d="M360 195 C285 195 265 290 150 300"/>
-              <path d="M360 195 C435 195 470 75 575 90"/><path d="M360 195 C440 195 470 190 600 195"/><path d="M360 195 C430 205 465 305 575 305"/>
-            </svg>
-            <div class="node core"><small>SEARCH</small><strong>bionic hand</strong><span>8 related places</span></div>
-            <div class="node n1"><small>SOFTWARE</small><strong>ECHO</strong><span>Project</span></div>
-            <div class="node n2"><small>HARDWARE</small><strong>Firmware</strong><span>ECHO</span></div>
-            <div class="node n3"><small>DESIGN</small><strong>3D Exports</strong><span>ECHO</span></div>
-            <div class="node n4"><small>TOOLS</small><strong>Serial Tests</strong><span>ECHO</span></div>
-            <div class="node n5"><small>DOCS</small><strong>Research</strong><span>ECHO</span></div>
-          </div>
-          <div class="status-demo"><span><i></i>13,245 items indexed</span><span>Local only</span></div>
+          <p class="release-line">
+            <span id="release-version">Version 1.0.0</span><b></b>Windows 10/11
+            x64<b></b>MIT licensed
+          </p>
         </div>
-      </div>
-    </section>
 
-    <section class="trust-strip shell reveal" aria-label="Product qualities">
-      <span>LOCAL INDEX</span><i></i><span>NO ACCOUNT</span><i></i><span>NO SERVER</span><i></i><span>ONE SHORTCUT</span>
-    </section>
+        <div
+          class="product-frame reveal"
+          aria-label="Personal Navigator application preview"
+        >
+          <div class="frame-glow"></div>
+          <div class="window-bar">
+            <span></span><span></span><span></span
+            ><small>PERSONAL NAVIGATOR</small><kbd>Ctrl Alt Space</kbd>
+          </div>
+          <div class="window-body">
+            <div class="search-demo">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <circle cx="10.7" cy="10.7" r="6.7" />
+                <path d="m16 16 4 4" />
+              </svg>
+              <span>bionic hand</span>
+              <em>Project roots</em>
+            </div>
+            <div class="map" aria-hidden="true">
+              <svg
+                class="map-lines"
+                viewBox="0 0 720 390"
+                preserveAspectRatio="none"
+              >
+                <path d="M360 195 C285 195 260 90 165 90" />
+                <path d="M360 195 C285 195 265 290 150 300" />
+                <path d="M360 195 C435 195 470 75 575 90" />
+                <path d="M360 195 C440 195 470 190 600 195" />
+                <path d="M360 195 C430 205 465 305 575 305" />
+              </svg>
+              <div class="node core">
+                <small>SEARCH</small><strong>bionic hand</strong
+                ><span>8 related places</span>
+              </div>
+              <div class="node n1">
+                <small>SOFTWARE</small><strong>ECHO</strong><span>Project</span>
+              </div>
+              <div class="node n2">
+                <small>HARDWARE</small><strong>Firmware</strong
+                ><span>ECHO</span>
+              </div>
+              <div class="node n3">
+                <small>DESIGN</small><strong>3D Exports</strong
+                ><span>ECHO</span>
+              </div>
+              <div class="node n4">
+                <small>TOOLS</small><strong>Serial Tests</strong
+                ><span>ECHO</span>
+              </div>
+              <div class="node n5">
+                <small>DOCS</small><strong>Research</strong><span>ECHO</span>
+              </div>
+            </div>
+            <div class="status-demo">
+              <span><i></i>13,245 items indexed</span><span>Local only</span>
+            </div>
+          </div>
+        </div>
+      </section>
 
-    <section class="section shell" id="features">
-      <div class="section-heading reveal">
-        <span class="eyebrow"><i></i> Built for flow</span>
-        <h2>Your files, with a sense of direction.</h2>
-        <p>Personal Navigator keeps the first view calm, then lets you dig deeper when you need to.</p>
-      </div>
-      <div class="feature-grid">
-        <article class="feature feature-wide reveal">
-          <div class="feature-icon"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="m16 16 4 4"/></svg></div>
-          <h3>Search the way you remember</h3>
-          <p>Use a project name, an approximate spelling, or a related idea. Results are scored locally and grouped into useful roots instead of a wall of files.</p>
-          <div class="query-row"><span>bionic hand</span><i></i><strong>ECHO</strong><small>related project</small></div>
-        </article>
-        <article class="feature reveal">
-          <div class="feature-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="2.5"/><circle cx="5" cy="6" r="1.5"/><circle cx="19" cy="6" r="1.5"/><circle cx="5" cy="18" r="1.5"/><circle cx="19" cy="18" r="1.5"/><path d="m7 7 3 3m4 0 3-3m-7 7-3 3m7-3 3 3"/></svg></div>
-          <h3>A map, not a list</h3>
-          <p>See the relationship between Personal, its main areas, and the project you want.</p>
-        </article>
-        <article class="feature reveal">
-          <div class="feature-icon"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="4"/><path d="M8 9h8M8 13h5M8 17h3"/></svg></div>
-          <h3>Detail on demand</h3>
-          <p>Start with project roots. Switch to detailed mode for matching subfolders and individual files.</p>
-        </article>
-        <article class="feature feature-wide reveal">
-          <div class="feature-icon"><svg viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.7 2.6 7.8 7 10 4.4-2.2 7-5.3 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg></div>
-          <h3>Private by construction</h3>
-          <p>The index stays on your computer. There is no account, cloud database, telemetry service, or search API between you and your files.</p>
-          <div class="privacy-line"><span>Files</span><i></i><span>Local index</span><i></i><span>Results</span></div>
-        </article>
-      </div>
-    </section>
+      <section class="trust-strip shell reveal" aria-label="Product qualities">
+        <span>LOCAL INDEX</span><i></i><span>NO ACCOUNT</span><i></i
+        ><span>NO SERVER</span><i></i><span>ONE SHORTCUT</span>
+      </section>
 
-    <section class="section downloads shell" id="downloads">
-      <div class="section-heading reveal">
-        <span class="eyebrow"><i></i> Get the app</span>
-        <h2>Small setup. Fast access.</h2>
-        <p>Download the current release, extract it, and run the included installer.</p>
-      </div>
-      <div class="download-grid">
-        <article class="download-card active reveal">
-          <div class="platform"><span class="windows-logo" aria-hidden="true"><i></i><i></i><i></i><i></i></span><div><h3>Windows</h3><p>Windows 10 and 11, x64</p></div></div>
-          <ul><li>Self-contained executable</li><li>Global keyboard shortcut</li><li>File Explorer integration</li></ul>
-          <a class="button button-primary full" href="https://github.com/linux-cmd/personal-navigator/releases/latest/download/PersonalNavigator-win-x64.zip">Download .zip <span id="release-size"></span></a>
-        </article>
-        <article class="download-card planned reveal">
-          <span class="planned-badge">PLANNED</span>
-          <div class="platform"><span class="platform-letter">M</span><div><h3>macOS</h3><p>Cross-platform interface needed</p></div></div>
-          <p class="platform-note">The current desktop interface uses Windows-specific technology. Follow the roadmap for progress.</p>
-          <a class="button button-quiet full" href="https://github.com/linux-cmd/personal-navigator/issues">Follow roadmap</a>
-        </article>
-        <article class="download-card planned reveal">
-          <span class="planned-badge">PLANNED</span>
-          <div class="platform"><span class="platform-letter">L</span><div><h3>Linux</h3><p>Cross-platform interface needed</p></div></div>
-          <p class="platform-note">Search is portable, but the window and shell integration need a new implementation.</p>
-          <a class="button button-quiet full" href="https://github.com/linux-cmd/personal-navigator/issues">Follow roadmap</a>
-        </article>
-      </div>
-      <div class="install-steps reveal">
-        <div><b>01</b><span><strong>Download</strong><small>Get the latest release archive</small></span></div>
-        <i></i><div><b>02</b><span><strong>Extract</strong><small>Open the downloaded folder</small></span></div>
-        <i></i><div><b>03</b><span><strong>Install</strong><small>Run the included PowerShell script</small></span></div>
-        <i></i><div><b>04</b><span><strong>Navigate</strong><small>Press Ctrl+Alt+Space</small></span></div>
-      </div>
-    </section>
+      <section class="section shell" id="features">
+        <div class="section-heading reveal">
+          <span class="eyebrow"><i></i> Built for flow</span>
+          <h2>Your files, with a sense of direction.</h2>
+          <p>
+            Personal Navigator keeps the first view calm, then lets you dig
+            deeper when you need to.
+          </p>
+        </div>
+        <div class="feature-grid">
+          <article class="feature feature-wide reveal">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24">
+                <circle cx="11" cy="11" r="6" />
+                <path d="m16 16 4 4" />
+              </svg>
+            </div>
+            <h3>Search the way you remember</h3>
+            <p>
+              Use a project name, an approximate spelling, or a related idea.
+              Results are scored locally and grouped into useful roots instead
+              of a wall of files.
+            </p>
+            <div class="query-row">
+              <span>bionic hand</span><i></i><strong>ECHO</strong
+              ><small>related project</small>
+            </div>
+          </article>
+          <article class="feature reveal">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="2.5" />
+                <circle cx="5" cy="6" r="1.5" />
+                <circle cx="19" cy="6" r="1.5" />
+                <circle cx="5" cy="18" r="1.5" />
+                <circle cx="19" cy="18" r="1.5" />
+                <path d="m7 7 3 3m4 0 3-3m-7 7-3 3m7-3 3 3" />
+              </svg>
+            </div>
+            <h3>A map, not a list</h3>
+            <p>
+              See the relationship between Personal, its main areas, and the
+              project you want.
+            </p>
+          </article>
+          <article class="feature reveal">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24">
+                <rect x="4" y="4" width="16" height="16" rx="4" />
+                <path d="M8 9h8M8 13h5M8 17h3" />
+              </svg>
+            </div>
+            <h3>Detail on demand</h3>
+            <p>
+              Start with project roots. Switch to detailed mode for matching
+              subfolders and individual files.
+            </p>
+          </article>
+          <article class="feature feature-wide reveal">
+            <div class="feature-icon">
+              <svg viewBox="0 0 24 24">
+                <path
+                  d="M12 3 5 6v5c0 4.7 2.6 7.8 7 10 4.4-2.2 7-5.3 7-10V6l-7-3Z"
+                />
+                <path d="m9 12 2 2 4-4" />
+              </svg>
+            </div>
+            <h3>Private by construction</h3>
+            <p>
+              The index stays on your computer. There is no account, cloud
+              database, telemetry service, or search API between you and your
+              files.
+            </p>
+            <div class="privacy-line">
+              <span>Files</span><i></i><span>Local index</span><i></i
+              ><span>Results</span>
+            </div>
+          </article>
+        </div>
+      </section>
 
-    <section class="open-source shell reveal">
-      <div><span class="eyebrow"><i></i> Open source</span><h2>Inspect it. Change it. Make it yours.</h2><p>The complete desktop app, website, tests, release scripts, and roadmap are available under the MIT License.</p></div>
-      <a class="repo-card" href="https://github.com/linux-cmd/personal-navigator"><small>github.com/linux-cmd</small><strong>personal-navigator</strong><span>View repository <b>↗</b></span></a>
-    </section>
-  </main>
+      <section class="section downloads shell" id="downloads">
+        <div class="section-heading reveal">
+          <span class="eyebrow"><i></i> Get the app</span>
+          <h2>Small setup. Fast access.</h2>
+          <p>
+            Download the current release, extract it, and run the included
+            installer.
+          </p>
+        </div>
+        <div class="download-grid">
+          <article class="download-card active reveal">
+            <div class="platform">
+              <span class="windows-logo" aria-hidden="true"
+                ><i></i><i></i><i></i><i></i
+              ></span>
+              <div>
+                <h3>Windows</h3>
+                <p>Windows 10 and 11, x64</p>
+              </div>
+            </div>
+            <ul>
+              <li>Self-contained executable</li>
+              <li>Global keyboard shortcut</li>
+              <li>File Explorer integration</li>
+            </ul>
+            <a
+              class="button button-primary full"
+              href="https://github.com/linux-cmd/personal-navigator/releases/latest/download/PersonalNavigator-win-x64.zip"
+              >Download .zip <span id="release-size"></span
+            ></a>
+          </article>
+          <article class="download-card planned reveal">
+            <span class="planned-badge">PLANNED</span>
+            <div class="platform">
+              <span class="platform-letter">M</span>
+              <div>
+                <h3>macOS</h3>
+                <p>Cross-platform interface needed</p>
+              </div>
+            </div>
+            <p class="platform-note">
+              The current desktop interface uses Windows-specific technology.
+              Follow the roadmap for progress.
+            </p>
+            <a
+              class="button button-quiet full"
+              href="https://github.com/linux-cmd/personal-navigator/issues"
+              >Follow roadmap</a
+            >
+          </article>
+          <article class="download-card planned reveal">
+            <span class="planned-badge">PLANNED</span>
+            <div class="platform">
+              <span class="platform-letter">L</span>
+              <div>
+                <h3>Linux</h3>
+                <p>Cross-platform interface needed</p>
+              </div>
+            </div>
+            <p class="platform-note">
+              Search is portable, but the window and shell integration need a
+              new implementation.
+            </p>
+            <a
+              class="button button-quiet full"
+              href="https://github.com/linux-cmd/personal-navigator/issues"
+              >Follow roadmap</a
+            >
+          </article>
+        </div>
+        <div class="install-steps reveal">
+          <div>
+            <b>01</b
+            ><span
+              ><strong>Download</strong
+              ><small>Get the latest release archive</small></span
+            >
+          </div>
+          <i></i>
+          <div>
+            <b>02</b
+            ><span
+              ><strong>Extract</strong
+              ><small>Open the downloaded folder</small></span
+            >
+          </div>
+          <i></i>
+          <div>
+            <b>03</b
+            ><span
+              ><strong>Install</strong
+              ><small>Run the included PowerShell script</small></span
+            >
+          </div>
+          <i></i>
+          <div>
+            <b>04</b
+            ><span
+              ><strong>Navigate</strong
+              ><small>Press Ctrl+Alt+Space</small></span
+            >
+          </div>
+        </div>
+      </section>
 
-  <footer class="shell">
-    <a class="brand" href="#top"><span class="brand-mark small" aria-hidden="true"></span><span>Personal Navigator</span></a>
-    <p>Created by <strong>Abhijay Panwar</strong></p>
-    <div><a href="https://github.com/linux-cmd/personal-navigator/blob/main/docs/INSTALLATION.md">Docs</a><a href="https://github.com/linux-cmd/personal-navigator/releases">Releases</a><a href="https://github.com/linux-cmd/personal-navigator/blob/main/LICENSE">License</a></div>
-  </footer>
-  <script src="app.js"></script>
-</body>
+      <section class="open-source shell reveal">
+        <div>
+          <span class="eyebrow"><i></i> Open source</span>
+          <h2>Inspect it. Change it. Make it yours.</h2>
+          <p>
+            The complete desktop app, website, tests, release scripts, and
+            roadmap are available under the MIT License.
+          </p>
+        </div>
+        <a
+          class="repo-card"
+          href="https://github.com/linux-cmd/personal-navigator"
+          ><small>github.com/linux-cmd</small><strong>personal-navigator</strong
+          ><span>View repository <b>↗</b></span></a
+        >
+      </section>
+    </main>
+
+    <footer class="shell">
+      <a class="brand" href="#top"
+        ><span class="brand-mark small" aria-hidden="true"></span
+        ><span>Personal Navigator</span></a
+      >
+      <p>Created by <strong>Abhijay Panwar</strong></p>
+      <div>
+        <a
+          href="https://github.com/linux-cmd/personal-navigator/blob/main/docs/INSTALLATION.md"
+          >Docs</a
+        ><a href="https://github.com/linux-cmd/personal-navigator/releases"
+          >Releases</a
+        ><a
+          href="https://github.com/linux-cmd/personal-navigator/blob/main/LICENSE"
+          >License</a
+        >
+      </div>
+    </footer>
+    <script src="app.js"></script>
+  </body>
 </html>
