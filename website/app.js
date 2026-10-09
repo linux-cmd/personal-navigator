@@ -17,7 +17,8 @@ fetch(releaseApi, { headers: { Accept: "application/vnd.github+json" } })
     for (const link of document.querySelectorAll("[data-latest-download]")) {
       if (selected?.browser_download_url) link.href = selected.browser_download_url;
       else link.href = releaseFallback;
-      if (link.dataset.downloadLabel) link.textContent = setup ? "Download Windows installer (.exe)" : "Download Windows ZIP (.zip)";
+      const label = link.matches("[data-download-label]") ? link : link.querySelector("[data-download-label]");
+      if (label) label.textContent = setup ? "Download Windows installer (.exe)" : "Download Windows ZIP (.zip)";
     }
     for (const label of document.querySelectorAll("[data-download-note]")) {
       label.textContent = setup ? "Setup wizard available. No ZIP extraction needed." : "This release requires extracting the ZIP and running the included PowerShell installer.";
