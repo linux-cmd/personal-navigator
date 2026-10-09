@@ -836,3 +836,10 @@ footer > div {
 .subpage .panel {padding:24px;border:1px solid var(--line);border-radius:var(--radius);background:var(--panel);margin:24px 0}
 :focus-visible {outline:3px solid var(--cyan);outline-offset:4px}
 @media (prefers-reduced-motion: reduce) {html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}.reveal{opacity:1!important;transform:none!important}}
+
+@media (max-width: 620px) {
+  .nav {height:auto;min-height:84px;flex-wrap:wrap;gap:14px;padding-block:16px}
+  .nav nav {width:100%;flex-wrap:wrap;gap:10px 18px}
+  .nav nav a:not(:last-child) {display:inline}
+  .nav nav a {font-size:13px}
+}
