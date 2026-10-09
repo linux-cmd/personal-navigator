@@ -21,3 +21,19 @@ jobs:
         run: dotnet build .\program\PersonalNavigator.csproj -c Release
       - name: Run smoke tests
         run: dotnet run --project .\program\tests\SmokeTest\SmokeTest.csproj -c Release
+      - name: Install NSIS
+        shell: pwsh
+        run: choco install nsis -y --no-progress
+      - name: Validate Windows release packages
+        shell: pwsh
+        run: |
+          .\scripts\Build-Release.ps1 -Version 1.0.1
+          if ($LASTEXITCODE -ne 0) { throw 'Publishing portable executable failed.' }
+          .\scripts\Build-Installer.ps1 -Version 1.0.1
+          if ($LASTEXITCODE -ne 0) { throw 'Compiling NSIS installer failed.' }
+          foreach ($name in @('PersonalNavigator-win-x64.zip', 'PersonalNavigator-Setup-win-x64.exe')) {
+            $asset = Join-Path 'artifacts' $name
+            if (-not (Test-Path -LiteralPath $asset -PathType Leaf)) { throw "Missing package: $name" }
+            if ((Get-Item -LiteralPath $asset).Length -lt 1024) { throw "Suspiciously small package: $name" }
+            Write-Host "$name packaged"
+          }
