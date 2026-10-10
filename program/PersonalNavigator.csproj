@@ -9,9 +9,9 @@
     <AssemblyName>PersonalNavigator</AssemblyName>
     <RootNamespace>PersonalNavigator</RootNamespace>
     <ApplicationManifest>app.manifest</ApplicationManifest>
-    <Version>1.0.0</Version>
-    <AssemblyVersion>1.0.0.0</AssemblyVersion>
-    <FileVersion>1.0.0.0</FileVersion>
+    <Version Condition="'$(Version)' == ''">0.0.0-local</Version>
+    <AssemblyVersion Condition="'$(AssemblyVersion)' == ''">0.0.0.0</AssemblyVersion>
+    <FileVersion Condition="'$(FileVersion)' == ''">0.0.0.0</FileVersion>
     <Authors>Abhijay Panwar</Authors>
     <Company>Abhijay Panwar</Company>
     <Product>Personal Navigator</Product>

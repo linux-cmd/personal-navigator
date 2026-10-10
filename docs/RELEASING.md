@@ -1,27 +1,14 @@
-# Release and versioning policy
+# Release system
 
-Use stable semantic versions: `MAJOR.MINOR.PATCH`, with Git tags named `vMAJOR.MINOR.PATCH`. The release workflow rejects other version-tag formats.
+Git tags are the application version authority. Application changes merged into `main` use Conventional Commits.
 
-- **PATCH:** backward-compatible bug fixes and packaging repairs.
-- **MINOR:** backward-compatible functionality.
-- **MAJOR:** incompatible changes to behavior, settings or persisted data formats.
+- `fix:` produces a patch release.
+- `feat:` produces a minor release.
+- `feat!:` or a `BREAKING CHANGE:` footer produces a major release.
+- Website, documentation, formatting, and workflow-only changes do not produce an application release.
 
-Update CHANGELOG.md before publishing. Never reuse a released version number or move an existing tag. The release workflow injects the version tag into the .NET app file and assembly versions.
+The semantic release workflow calculates the next available version, validates the app, builds the self-contained executable, compiles and silently tests the Windows installer, verifies uninstall, writes categorized notes and a SHA-256 checksum, and publishes an immutable GitHub Release.
 
-## Maintainer checklist
+Major releases wait for approval through the protected GitHub environment named `major-release`. Configure at least one required reviewer in repository Settings, Environments, major-release.
 
-1. Merge reviewed code to main after Windows CI succeeds.
-2. Update CHANGELOG.md and user-facing docs.
-3. Tag that tested commit with `git tag -a vX.Y.Z -m "Release vX.Y.Z"`; push with `git push origin vX.Y.Z`.
-4. GitHub Actions verifies the tag, runs build and smoke tests, publishes the app, builds an NSIS installer, calculates SHA256SUMS.txt, and publishes a GitHub Release with both the installer and legacy ZIP.
-5. **Manually test** fresh installation, upgrading and uninstalling on Windows 10/11. CI success does not guarantee correct UI or setup behavior.
-6. Verify the published installer asset and the website download selection.
-
-On Windows with .NET 8 and NSIS 3 installed, build the files locally:
-
-```powershell
-.\scripts\Build-Release.ps1 -Version 1.1.0
-.\scripts\Build-Installer.ps1 -Version 1.1.0
-```
-
-The generated setup EXE is at `artifacts\PersonalNavigator-Setup-win-x64.exe`. Currently there is no automatic background updater, code signing, or automated semantic version bump. Major-version rollback may require data migration.
+Use the workflow's manual dispatch inputs for an explicit bump or a prerelease identifier such as `beta.1`. Code signing remains disabled until a valid certificate is added securely and the resulting signature is verified.

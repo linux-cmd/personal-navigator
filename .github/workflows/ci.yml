@@ -31,7 +31,7 @@ jobs:
           if ($LASTEXITCODE -ne 0) { throw 'Publishing portable executable failed.' }
           .\scripts\Build-Installer.ps1 -Version 1.0.1
           if ($LASTEXITCODE -ne 0) { throw 'Compiling NSIS installer failed.' }
-          foreach ($name in @('PersonalNavigator-win-x64.zip', 'PersonalNavigator-Setup-win-x64.exe')) {
+          foreach ($name in @('PersonalNavigator-Setup-1.0.1-win-x64.exe')) {
             $asset = Join-Path 'artifacts' $name
             if (-not (Test-Path -LiteralPath $asset -PathType Leaf)) { throw "Missing package: $name" }
             if ((Get-Item -LiteralPath $asset).Length -lt 1024) { throw "Suspiciously small package: $name" }

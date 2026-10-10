@@ -1,58 +1,108 @@
-name: Release
+name: Semantic release
 
 on:
   push:
-    tags: ['v*']
+    branches: [main]
+    paths:
+      - "program/**"
+      - "scripts/Build-Release.ps1"
+      - "scripts/Build-Installer.ps1"
+      - "scripts/PersonalNavigator.nsi"
+      - "scripts/Determine-Version.ps1"
+      - "scripts/Generate-ReleaseNotes.ps1"
+  workflow_dispatch:
+    inputs:
+      bump:
+        type: choice
+        options: [auto, patch, minor, major]
+        default: auto
+      prerelease:
+        description: Optional identifier such as beta.1
+        type: string
+        required: false
 
 permissions:
-  contents: write
+  contents: read
+
+concurrency:
+  group: semantic-release
+  cancel-in-progress: false
 
 jobs:
-  windows-release:
-    runs-on: windows-latest
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      should_release: ${{ steps.version.outputs.should_release }}
+      version: ${{ steps.version.outputs.version }}
+      tag: ${{ steps.version.outputs.tag }}
+      bump: ${{ steps.version.outputs.bump }}
+      previous_tag: ${{ steps.version.outputs.previous_tag }}
+      prerelease: ${{ steps.version.outputs.prerelease }}
     steps:
       - uses: actions/checkout@v7
+        with: { fetch-depth: 0 }
+      - id: version
+        name: Calculate semantic version
+        shell: pwsh
+        run: ./scripts/Determine-Version.ps1 -RequestedBump '${{ inputs.bump || 'auto' }}' -Prerelease '${{ inputs.prerelease }}'
+
+  major-approval:
+    needs: prepare
+    if: needs.prepare.outputs.should_release == 'true' && needs.prepare.outputs.bump == 'major'
+    runs-on: ubuntu-latest
+    environment: major-release
+    steps:
+      - run: echo "Major release approved"
+
+  build-release:
+    needs: [prepare, major-approval]
+    if: always() && needs.prepare.outputs.should_release == 'true' && (needs.major-approval.result == 'success' || needs.major-approval.result == 'skipped')
+    runs-on: windows-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+        with: { fetch-depth: 0 }
       - uses: actions/setup-dotnet@v6
-        with:
-          dotnet-version: 8.0.x
-      - name: Validate release tag
+        with: { dotnet-version: 8.0.x }
+      - name: Validate application
         shell: pwsh
         run: |
-          if ($env:GITHUB_REF_NAME -notmatch '^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$') {
-            throw 'Release tags must be stable semantic versions, for example v1.1.0.'
-          }
-      - name: Build and test
-        shell: pwsh
-        run: |
-          dotnet build .\program\PersonalNavigator.csproj -c Release
-          if ($LASTEXITCODE -ne 0) { throw 'Build failed.' }
+          dotnet build .\program\PersonalNavigator.csproj -c Release -p:Version=${{ needs.prepare.outputs.version }}
           dotnet run --project .\program\tests\SmokeTest\SmokeTest.csproj -c Release
-          if ($LASTEXITCODE -ne 0) { throw 'Smoke tests failed.' }
-      - name: Publish self-contained Windows application
-        shell: pwsh
-        run: .\scripts\Build-Release.ps1 -Version ($env:GITHUB_REF_NAME.Substring(1))
-      - name: Install NSIS build tool
-        shell: pwsh
-        run: choco install nsis -y --no-progress
-      - name: Create Windows setup wizard
-        shell: pwsh
-        run: .\scripts\Build-Installer.ps1 -Version ($env:GITHUB_REF_NAME.Substring(1))
-      - name: Verify version and write SHA256 checksums
+      - name: Build application and installer
         shell: pwsh
         run: |
-          $version = $env:GITHUB_REF_NAME.Substring(1)
-          $exe = '.\artifacts\win-x64\PersonalNavigator.exe'
-          $info = [System.Diagnostics.FileVersionInfo]::GetVersionInfo((Resolve-Path $exe).Path)
-          if ($info.FileVersion -ne "$version.0") { throw "App file version $($info.FileVersion) did not match $version.0" }
-          $names = @('PersonalNavigator-Setup-win-x64.exe', 'PersonalNavigator-win-x64.zip')
-          $lines = foreach ($name in $names) {
-            $hash = (Get-FileHash ".\artifacts\$name" -Algorithm SHA256).Hash.ToLowerInvariant()
-            "$hash  $name"
-          }
-          Set-Content -Path .\artifacts\SHA256SUMS.txt -Value $lines -Encoding ascii
-      - name: Publish GitHub release
+          .\scripts\Build-Release.ps1 -Version '${{ needs.prepare.outputs.version }}'
+          choco install nsis -y --no-progress
+          .\scripts\Build-Installer.ps1 -Version '${{ needs.prepare.outputs.version }}'
+      - name: Validate installer metadata and uninstall
+        shell: pwsh
+        run: |
+          $version = '${{ needs.prepare.outputs.version }}'
+          $installer = Resolve-Path ".\artifacts\PersonalNavigator-Setup-$version-win-x64.exe"
+          $testDir = Join-Path $env:RUNNER_TEMP 'PersonalNavigator-Test'
+          $install = Start-Process $installer -ArgumentList '/S',"/D=$testDir" -Wait -PassThru
+          if ($install.ExitCode -ne 0) { throw "Installer failed with $($install.ExitCode)" }
+          $app = Join-Path $testDir 'PersonalNavigator.exe'
+          if (-not (Test-Path $app)) { throw 'Installed executable missing.' }
+          if (-not (Get-Item $app).VersionInfo.FileVersion.StartsWith($version)) { throw 'Installed version mismatch.' }
+          $uninstall = Start-Process (Join-Path $testDir 'Uninstall.exe') -ArgumentList '/S' -Wait -PassThru
+          if ($uninstall.ExitCode -ne 0 -or (Test-Path $app)) { throw 'Uninstall validation failed.' }
+      - name: Generate notes and checksum
+        shell: pwsh
+        run: |
+          $version = '${{ needs.prepare.outputs.version }}'
+          .\scripts\Generate-ReleaseNotes.ps1 -PreviousTag '${{ needs.prepare.outputs.previous_tag }}' -Version $version -OutputPath .\artifacts\release-notes.md
+          $name = "PersonalNavigator-Setup-$version-win-x64.exe"
+          $hash = (Get-FileHash ".\artifacts\$name" -Algorithm SHA256).Hash.ToLowerInvariant()
+          "$hash  $name" | Set-Content .\artifacts\SHA256SUMS.txt -Encoding ascii
+      - name: Publish immutable GitHub release
         shell: pwsh
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create $env:GITHUB_REF_NAME .\artifacts\PersonalNavigator-Setup-win-x64.exe .\artifacts\PersonalNavigator-win-x64.zip .\artifacts\SHA256SUMS.txt --verify-tag --generate-notes --title "Personal Navigator $env:GITHUB_REF_NAME"
+          $version = '${{ needs.prepare.outputs.version }}'
+          $args = @('release','create','v'+$version,".\artifacts\PersonalNavigator-Setup-$version-win-x64.exe",'.\artifacts\SHA256SUMS.txt','--target',$env:GITHUB_SHA,'--title',"Personal Navigator $version",'--notes-file','.\artifacts\release-notes.md')
+          if ('${{ needs.prepare.outputs.prerelease }}' -eq 'true') { $args += '--prerelease' }
+          gh @args

@@ -11,7 +11,7 @@ Created and maintained by **Abhijay Panwar**.
 ## What you can do
 
 - Press **Ctrl+Alt+Space** to open the project map from anywhere on Windows.
-- Search names, paths, approximate spellings, and a local list of related words. This is **not** an AI semantic search service.
+- Search names, paths, approximate spellings, and a local list of related words.
 - View relevant projects first, then switch to deeper file and subfolder results.
 - Open folders directly in Windows Explorer or use **Open Personal Map** from Explorer.
 - Customize exclusions, indexing of file types, animations, startup and display preferences.
@@ -22,11 +22,10 @@ Created and maintained by **Abhijay Panwar**.
 ## Download and install
 
 1. Open the [latest Windows release](https://github.com/linux-cmd/personal-navigator/releases/latest).
-2. If available, download `PersonalNavigator-Setup-win-x64.exe` and follow the setup wizard.
-3. Older releases such as v1.0.0 contain only a ZIP; extract it and run `Install-PersonalNavigator.ps1`.
-4. Press **Ctrl+Alt+Space**.
+2. Download the versioned `PersonalNavigator-Setup-<version>-win-x64.exe` and follow the setup wizard.
+3. Press **Ctrl+Alt+Space**.
 
-**System requirements:** Windows 10/11 x64. Currently unsigned; Windows SmartScreen may warn. The installer uses the current Windows user and requires no administrator permissions. There is no automatic updater yet: check GitHub Releases to install updates manually.
+**System requirements:** Windows 10/11 x64. Currently unsigned; Windows SmartScreen may warn. The default Program Files installation requests administrator permission. There is no silent automatic updater: run a newer installer to upgrade with user consent.
 
 See [installation, upgrade and uninstall instructions](docs/INSTALLATION.md). Linux and macOS builds are not available because this interface uses WPF.
 

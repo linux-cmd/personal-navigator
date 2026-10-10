@@ -1,5 +1,85 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Download for Personal Navigator, a local visual project map for Windows."><meta name="theme-color" content="#090b11"><title>Download | Personal Navigator</title><link rel="canonical" href="https://linux-cmd.github.io/personal-navigator/download.html"><link rel="stylesheet" href="styles.css"></head>
-<body><header class="nav shell"><a class="brand" href="index.html">Personal Navigator</a><nav aria-label="Primary navigation"><a href="features.html">Features</a><a href="download.html">Download</a><a href="docs.html">Docs</a><a href="support.html">Support</a></nav></header>
-<main class="shell subpage"><span class="eyebrow">Personal Navigator / Download</span><h1>Get Personal Navigator for Windows</h1><div class="panel"><h2>Windows 10/11 · x64</h2><p data-download-note>The currently published release may include a setup wizard or a ZIP fallback.</p><a data-latest-download data-download-label class="button button-primary" href="https://github.com/linux-cmd/personal-navigator/releases/latest">View Windows download</a><p><span id="release-version">Latest version</span> <span id="release-size"></span></p></div><h2>Install in four steps</h2><ol><li>Open the release and download the Windows setup EXE if available.</li><li>Follow the wizard and install for your Windows account. Older releases require extracting the ZIP and running the included PowerShell script.</li><li>Create <code>%USERPROFILE%\Personal</code> and put projects inside.</li><li>Open the app and press <code>Ctrl+Alt+Space</code>.</li></ol><h2>Safety and upgrades</h2><p>Current builds are unsigned and Windows SmartScreen may warn. Download only from official GitHub Releases. Updates are manual; rerun the setup wizard to upgrade. Uninstall through Windows Settings or the Start menu.</p><p><a href="docs.html">Complete documentation</a> · <a href="https://github.com/linux-cmd/personal-navigator/releases">Versioned releases</a></p><h2>Other platforms</h2><p>macOS and Linux are not supported by the current WPF desktop app.</p></main>
-<footer class="shell"><p>© Personal Navigator contributors · MIT licensed</p><div><a href="index.html">Home</a> · <a href="changelog.html">Changelog</a> · <a href="roadmap.html">Roadmap</a> · <a href="https://github.com/linux-cmd/personal-navigator">GitHub</a></div></footer><script src="app.js"></script></body></html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta
+      name="description"
+      content="Download for Personal Navigator, a local visual project map for Windows."
+    />
+    <meta name="theme-color" content="#090b11" />
+    <title>Download | Personal Navigator</title>
+    <link
+      rel="canonical"
+      href="https://linux-cmd.github.io/personal-navigator/download.html"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="nav shell">
+      <a class="brand" href="index.html">Personal Navigator</a>
+      <nav aria-label="Primary navigation">
+        <a href="features.html">Features</a><a href="download.html">Download</a
+        ><a href="docs.html">Docs</a><a href="support.html">Support</a>
+      </nav>
+    </header>
+    <main class="shell subpage">
+      <span class="eyebrow">Personal Navigator / Download</span>
+      <h1>Get Personal Navigator for Windows</h1>
+      <div class="panel">
+        <h2>Windows 10/11 · x64</h2>
+        <p data-download-note>
+          Loading the latest verified installer from GitHub Releases.
+        </p>
+        <a
+          data-latest-download
+          class="button button-primary"
+          href="https://github.com/linux-cmd/personal-navigator/releases/latest"
+          ><span data-download-label>View Windows installer</span></a
+        >
+        <p>
+          <span id="release-version">Latest stable</span> ·
+          <span id="release-size"></span> · <span data-release-date></span>
+        </p>
+        <p><strong data-release-file></strong></p>
+        <p>SHA-256: <code data-release-checksum>Loading...</code></p>
+      </div>
+      <h2>Install in four steps</h2>
+      <ol>
+        <li>Download the Windows setup executable above.</li>
+        <li>
+          Open it, review the MIT License, and choose the installation folder.
+        </li>
+        <li>
+          Choose optional desktop and startup shortcuts, then select Install.
+        </li>
+        <li>Launch the app and press <code>Ctrl+Alt+Space</code>.</li>
+      </ol>
+      <h2>Safety and upgrades</h2>
+      <p>
+        Current builds are unsigned and Windows SmartScreen may warn. Verify the
+        SHA-256 value above. Running a newer installer upgrades the existing
+        installation while preserving settings. Uninstall through Windows
+        Settings or the Start menu.
+      </p>
+      <p>
+        <a href="docs.html">Complete documentation</a> ·
+        <a href="changelog.html">Previous versions</a> ·
+        <a href="https://github.com/linux-cmd/personal-navigator/releases"
+          >GitHub Releases</a
+        >
+      </p>
+      <h2>Other platforms</h2>
+      <p>macOS and Linux are not supported by the current WPF desktop app.</p>
+    </main>
+    <footer class="shell">
+      <p>© Personal Navigator contributors · MIT licensed</p>
+      <div>
+        <a href="index.html">Home</a> · <a href="changelog.html">Changelog</a> ·
+        <a href="roadmap.html">Roadmap</a> ·
+        <a href="https://github.com/linux-cmd/personal-navigator">GitHub</a>
+      </div>
+    </footer>
+    <script src="app.js"></script>
+  </body>
+</html>
