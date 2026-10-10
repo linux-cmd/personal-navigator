@@ -103,6 +103,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           $version = '${{ needs.prepare.outputs.version }}'
-          $args = @('release','create','v'+$version,".\artifacts\PersonalNavigator-Setup-$version-win-x64.exe",'.\artifacts\SHA256SUMS.txt','--target',$env:GITHUB_SHA,'--title',"Personal Navigator $version",'--notes-file','.\artifacts\release-notes.md')
+          $tag = "v$version"
+          $args = @('release','create',$tag,".\artifacts\PersonalNavigator-Setup-$version-win-x64.exe",'.\artifacts\SHA256SUMS.txt','--target',$env:GITHUB_SHA,'--title',"Personal Navigator $version",'--notes-file','.\artifacts\release-notes.md')
           if ('${{ needs.prepare.outputs.prerelease }}' -eq 'true') { $args += '--prerelease' }
           gh @args
